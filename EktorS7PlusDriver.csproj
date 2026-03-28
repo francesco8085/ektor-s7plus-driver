@@ -1,0 +1,62 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <PlatformTarget>x64</PlatformTarget>
+    <AssemblyName>EktorS7PlusDriver</AssemblyName>
+    <RootNamespace>EnterSrl.Ektor.S7Plus</RootNamespace>
+
+    <!-- Metadati autore -->
+    <Product>Ektor S7Plus Driver</Product>
+    <Company>Enter SRL</Company>
+    <Authors>Francesco Cesarone</Authors>
+    <Copyright>Copyright © 2025-2026 Francesco Cesarone — Enter SRL. All rights reserved.</Copyright>
+    <Description>
+      Driver di comunicazione S7CommPlus per PLC Siemens S7-1200 e S7-1500.
+      Gestisce connessioni, browse variabili, lettura/scrittura batch,
+      operazioni su blocchi e client S7 raw (SZL, upload MC7).
+      Sviluppato da Francesco Cesarone per la piattaforma EKTOR Industrial IoT.
+    </Description>
+    <PackageProjectUrl>https://entersrl.it</PackageProjectUrl>
+    <Version>1.0.0</Version>
+    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+
+    <NoWarn>CS8600;CS8601;CS8602;CS8603;CS8604;CS8618;CS8625;CS0219;CS1998</NoWarn>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- S7CommPlus protocol driver — external dependency, not included in this repo -->
+    <Reference Include="S7CommPlusDriver">
+      <HintPath>..\tiaconnector\lib\S7CommPlusDriver\src\S7CommPlusDriver\bin\x64\Release\S7CommPlusDriver.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="zlib.net">
+      <HintPath>..\tiaconnector\lib\S7CommPlusDriver\src\S7CommPlusDriver\bin\x64\Release\zlib.net.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+  </ItemGroup>
+
+  <!-- Copy OpenSSL DLLs necessari per TLS S7CommPlus -->
+  <ItemGroup>
+    <None Include="..\tiaconnector\lib\S7CommPlusDriver\src\S7CommPlusDriver\OpenSSL-dll-x64\libcrypto-3-x64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>libcrypto-3-x64.dll</Link>
+    </None>
+    <None Include="..\tiaconnector\lib\S7CommPlusDriver\src\S7CommPlusDriver\OpenSSL-dll-x64\libssl-3-x64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>libssl-3-x64.dll</Link>
+    </None>
+  </ItemGroup>
+
+</Project>
